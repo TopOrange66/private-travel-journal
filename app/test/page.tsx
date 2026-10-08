@@ -1,28 +1,20 @@
 import { createClient } from "@/lib/supabase/server";
-import RouteMapWrapper from "@/app/components/RouteMapWrapper";
-import CommentForm from "@/app/components/CommentForm";
+import RouteMap from "@/app/components/RouteMap";
 export default async function Home() {
   const supabase = await createClient();
 
   const { data: entries, error } = await supabase
-  .from("entries")
-  .select("*")
-  .order("Date", { ascending: false });
+    .from("entries")
+    .select("*")
+    .order("Date", { ascending: false });
 
-const { data: entryPhotos, error: photosError } = await supabase
-  .from("entry_photos")
-  .select("*");
-const { data: comments, error: commentsError } = await supabase
-  .from("comments")
-  .select("*")
-  .order("created_at", { ascending: true });
   return (
     <main className="min-h-screen bg-[#f3efe7]">
       {/* Header */}
       <header className="border-b border-stone-200/80 bg-[#faf8f3]">
         <div className="mx-auto max-w-3xl px-5 py-8">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-stone-500">
-            Tonnetjes's reisdagboek
+            Tonnetjes's reisdagboek TEST
           </p>
 
           <h1 className="mt-2 text-4xl font-bold tracking-tight text-stone-900">
@@ -41,7 +33,6 @@ const { data: comments, error: commentsError } = await supabase
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-stone-500">Mijn reis</p>
-
               <p className="mt-1 text-xl font-semibold text-stone-900">
                 Porto → Santiago de Compostela
               </p>
@@ -60,13 +51,19 @@ const { data: comments, error: commentsError } = await supabase
           </div>
         </div>
       </section>
-{/* Kaart */}
-<section className="mx-auto max-w-3xl px-5 pb-7">
-  <div className="overflow-hidden rounded-3xl border border-stone-200/70 bg-[#faf8f3] shadow-sm">
-    <RouteMapWrapper />
+
+      {/* Kaart */}
+      <section className="mx-auto max-w-3xl px-5 pb-7">
+  <div className="h-72 rounded-3xl bg-red-300 p-6">
+    <h2 className="text-2xl font-bold text-black">
+      TEST KAART
+    </h2>
+    <p className="mt-2 text-black">
+      Als je dit ziet, werkt het kaartvak.
+    </p>
   </div>
-</section>
-      
+      </section>
+
       {/* Reisupdates */}
       <section className="mx-auto max-w-3xl px-5 pb-12">
         <h2 className="mb-5 text-2xl font-semibold text-stone-900">
@@ -85,48 +82,18 @@ const { data: comments, error: commentsError } = await supabase
               key={entry.id}
               className="overflow-hidden rounded-3xl border border-stone-200/70 bg-[#faf8f3] shadow-sm"
             >
-             {/* Foto's */}
-<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-  {entryPhotos
-    ?.filter((photo) => photo.entry_id === entry.id)
-    .map((photo) => (
-      <div key={photo.id} className="overflow-hidden">
-        <img
-          src={photo.photo_url}
-          alt="Foto uit mijn reisdagboek"
-          className="h-56 w-full object-cover"
-        />
-      </div>
-    ))}
-</div>
-<CommentForm entryId={entry.id} />
-<div className="mt-6 space-y-3">
-  {comments
-    ?.filter((comment) => comment.entry_id === entry.id)
-    .map((comment) => (
-      <div
-        key={comment.id}
-        className="rounded-lg bg-white/70 p-4"
-      >
-        <div className="font-medium text-stone-700">
-          {comment.name}
-        </div>
-
-        <div className="mt-1 text-sm text-stone-600">
-          {comment.comment}
-        </div>
-      </div>
-    ))}
-</div>
-
+              {/* Foto */}
+              <div className="flex h-56 items-center justify-center bg-stone-300">
+                <span className="text-sm text-stone-600">
+                  Hier komt straks de reisfoto
+                </span>
+              </div>
 
               <div className="p-6">
                 <div className="flex flex-wrap items-center gap-2 text-sm text-stone-500">
                   <span>📍</span>
                   <span>{entry.Location}</span>
-
                   <span>·</span>
-
                   <span>{entry.Date}</span>
                 </div>
 
