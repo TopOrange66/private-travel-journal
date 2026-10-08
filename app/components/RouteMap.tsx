@@ -72,7 +72,13 @@ const stopIcon = L.divIcon({
   `,
 });
 
-export default function RouteMap() {
+export default function RouteMap({
+  currentPlace,
+}: {
+  currentPlace?: string;
+}) {
+
+
   const positions = route.map((place) => place.position);
 function FitRoute() {
   const map = useMap();
@@ -97,24 +103,37 @@ function FitRoute() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <Polyline
-          positions={positions}
-          pathOptions={{
-            color: "#57534e",
-            weight: 4,
-            dashArray: "8 8",
-          }}
-        />
+        {route.slice(0, route.findIndex((place) => place.name === currentPlace)).length > 0 && (
+  <Polyline
+    positions={route
+      .slice(0, route.findIndex((place) => place.name === currentPlace) + 1)
+      .map((place) => place.position)}
+    pathOptions={{
+      color: "#b45309",
+      weight: 5,
+    }}
+  />
+)}
+
+<Polyline
+  positions={positions}
+  pathOptions={{
+    color: "#d6d3d1",
+    weight: 4,
+    dashArray: "8 8",
+  }}
+/>
 
         {route.map((place, index) => {
           const isStart = index === 0;
           const isEnd = index === route.length - 1;
+          const isCurrent = place.name === currentPlace;
 
           return (
             <Marker
               key={place.name}
               position={place.position}
-              icon={isStart ? startIcon : isEnd ? endIcon : stopIcon}
+              icon={isCurrent ? endIcon : isStart ? startIcon : isEnd ? endIcon : stopIcon}
             >
               <Popup>
                 <strong>{place.name}</strong>

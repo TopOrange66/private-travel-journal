@@ -9,6 +9,8 @@ export default async function Home() {
   .select("*")
   .order("Date", { ascending: false });
 
+  const currentPlace = entries?.[0]?.current_place ?? "";
+
 const { data: entryPhotos, error: photosError } = await supabase
   .from("entry_photos")
   .select("*");
@@ -63,7 +65,7 @@ const { data: comments, error: commentsError } = await supabase
 {/* Kaart */}
 <section className="mx-auto max-w-3xl px-5 pb-7">
   <div className="overflow-hidden rounded-3xl border border-stone-200/70 bg-[#faf8f3] shadow-sm">
-    <RouteMapWrapper />
+    <RouteMapWrapper currentPlace={currentPlace} />
   </div>
 </section>
       
@@ -99,25 +101,7 @@ const { data: comments, error: commentsError } = await supabase
       </div>
     ))}
 </div>
-<CommentForm entryId={entry.id} />
-<div className="mt-6 space-y-3">
-  {comments
-    ?.filter((comment) => comment.entry_id === entry.id)
-    .map((comment) => (
-      <div
-        key={comment.id}
-        className="rounded-lg bg-white/70 p-4"
-      >
-        <div className="font-medium text-stone-700">
-          {comment.name}
-        </div>
 
-        <div className="mt-1 text-sm text-stone-600">
-          {comment.comment}
-        </div>
-      </div>
-    ))}
-</div>
 
 
               <div className="p-6">
@@ -137,6 +121,26 @@ const { data: comments, error: commentsError } = await supabase
                 <p className="mt-3 leading-7 text-stone-700">
                   {entry.Content}
                 </p>
+                <CommentForm entryId={entry.id} />
+
+<div className="mt-6 space-y-3">
+  {comments
+    ?.filter((comment) => comment.entry_id === entry.id)
+    .map((comment) => (
+      <div
+        key={comment.id}
+        className="rounded-lg bg-white/70 p-4"
+      >
+        <div className="font-medium text-stone-700">
+          {comment.name}
+        </div>
+
+        <div className="mt-1 text-sm text-stone-600">
+          {comment.comment}
+        </div>
+      </div>
+    ))}
+</div>
               </div>
             </article>
           ))}

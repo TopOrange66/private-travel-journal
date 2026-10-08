@@ -8,6 +8,7 @@ export default function AdminPage() {
   const [content, setContent] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
+  const [currentPlace, setCurrentPlace] = useState("");
   const [latitude, setLatitude] = useState<number | null>(null);
 const [longitude, setLongitude] = useState<number | null>(null);
 const [photos, setPhotos] = useState<File[]>([]);
@@ -34,6 +35,7 @@ const [photos, setPhotos] = useState<File[]>([]);
         Content: content,
         Location: location,
         Date: date,
+        current_place: currentPlace,
       })
       .select()
       .single();
@@ -181,7 +183,32 @@ const [photos, setPhotos] = useState<File[]>([]);
       📍 Gebruik mijn huidige locatie
     </button>
   </div>
+<div>
+  <label className="block text-sm font-medium text-stone-700">
+    Huidige plaats op de route
+  </label>
 
+  <select
+    value={currentPlace}
+    onChange={(e) => setCurrentPlace(e.target.value)}
+    className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2"
+  >
+    <option value="">Kies een plaats</option>
+    <option value="Porto">Porto</option>
+    <option value="São Pedro de Rates">São Pedro de Rates</option>
+    <option value="Barcelos">Barcelos</option>
+    <option value="Balugães">Balugães</option>
+    <option value="Ponte de Lima">Ponte de Lima</option>
+    <option value="Rubiães">Rubiães</option>
+    <option value="Tui">Tui</option>
+    <option value="O Porriño">O Porriño</option>
+    <option value="Redondela">Redondela</option>
+    <option value="Pontevedra">Pontevedra</option>
+    <option value="Caldas de Reis">Caldas de Reis</option>
+    <option value="Padrón">Padrón</option>
+    <option value="Santiago de Compostela">Santiago de Compostela</option>
+  </select>
+</div>
   <button
     type="submit"
     className="rounded-lg bg-stone-800 px-5 py-2.5 text-white"

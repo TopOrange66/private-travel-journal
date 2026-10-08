@@ -7,6 +7,10 @@ const RouteMap = dynamic(
   { ssr: false }
 );
 
-export default function RouteMapWrapper() {
-  return <RouteMap />;
+export default function RouteMapWrapper({
+  currentPlace,
+}: {
+  currentPlace?: string;
+}) {
+  return <RouteMap currentPlace={currentPlace} />;
 }
