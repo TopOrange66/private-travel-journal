@@ -53,7 +53,7 @@ const { data: comments, error: commentsError } = await supabase
           </div>
 
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-stone-200">
-            <div className="h-full w-[8%] rounded-full bg-stone-700" />
+            <div className="h-full w-[12%] rounded-full bg-stone-700" />
           </div>
 
           <div className="mt-2 flex justify-between text-xs text-stone-500">
