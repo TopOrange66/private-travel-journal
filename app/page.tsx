@@ -53,7 +53,7 @@ const { data: comments, error: commentsError } = await supabase
           </div>
 
           <div className="mt-6 h-2 overflow-hidden rounded-full bg-stone-200">
-            <div className="h-full w-[12%] rounded-full bg-stone-700" />
+            <div className="h-full w-[50%] rounded-full bg-stone-700" />
           </div>
 
           <div className="mt-2 flex justify-between text-xs text-stone-500">
@@ -92,13 +92,13 @@ const { data: comments, error: commentsError } = await supabase
   {entryPhotos
     ?.filter((photo) => photo.entry_id === entry.id)
     .map((photo) => (
-      <div key={photo.id} className="overflow-hidden">
-        <img
-          src={photo.photo_url}
-          alt="Foto uit mijn reisdagboek"
-          className="h-56 w-full object-cover"
-        />
-      </div>
+    <div key={photo.id} className="overflow-hidden rounded-xl">
+  <img
+    src={photo.photo_url}
+    alt="Foto uit mijn reisdagboek"
+    className="h-56 w-full object-cover"
+  />
+</div>
     ))}
 </div>
 
