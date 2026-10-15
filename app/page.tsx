@@ -119,7 +119,7 @@ const { data: comments, error: commentsError } = await supabase
                 </h3>
 
                 <p className="mt-3 leading-7 text-stone-700">
-                  {entry.Content}
+                  <p className="whitespace-pre-wrap">{entry.Content}</p>
                 </p>
                 <CommentForm entryId={entry.id} />
 
